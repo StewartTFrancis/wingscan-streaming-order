@@ -17,8 +17,15 @@ $(function () {
                 //Set encryption key for scan/import results located in persistent store in the UserProfile folder
                 Atalasoft.Controls.Capture.WebScanning.LocalFile.setEncryptionKey("foobar");
             },
-            onScanStarted: function (eventName, eventObj) { console.log('Scan Started'); },
-            onScanCompleted: function (eventName, eventObj) { console.log('Scan Completed: ' + eventObj.success); },
+            onScanStarted: function (eventName, eventObj) {
+                $('#scanid').prop('disabled', true);
+                console.log('Scan Started');
+            },
+            onScanCompleted: function (eventName, eventObj) {
+                console.log('Scan Completed: ' + eventObj.success);
+                
+                $('#scanid').prop('disabled', false).val(makeId(7)); //Renable the scan id... and make a random one.
+            },
             onImportCompleted: function (eventName, eventObj) { console.log('Import Completed: ' + eventObj.success); },
             onImageAcquired: function (eventName, eventObj) {
                 console.log("Image Acquired");
@@ -30,7 +37,7 @@ $(function () {
                     {
                         quality: 5
                     },
-                    function (data) { Atalasoft.Controls.Capture.UploadToCaptureServer.uploadToServer(data); });
+                    function (data) { Atalasoft.Controls.Capture.UploadToCaptureServer.uploadToServer(data, { formData: { scanid: $('#scanid').val(), page: eventObj.sheetNo } }); });
             },
             onUploadError: function (msg, params) { console.log(msg); },
             onUploadStarted: function (eventName, eventObj) { console.log('Upload Started'); },
@@ -49,6 +56,8 @@ $(function () {
     } catch (error) {
         console.log("Thrown error: " + error.description);
     }
+
+    $('#scanid').val(makeId(7)); //Make a random ID on load.
 });
 
 function scanWithSettings() {
@@ -81,4 +90,14 @@ function collectScanSettings() {
     }
 
     return scanningOptions;
+}
+
+var makeId = function (len) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    for (var i = 0; i < len; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }

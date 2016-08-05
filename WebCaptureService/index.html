@@ -10,7 +10,7 @@
     <script src="Scripts/atalaWebCapture.js" type="text/javascript"></script>
 
     <link href="Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
-    <link href="Scripts/atalaWebDocumentViewer.css" rel="stylesheet" type="text/css" />   
+    <link href="Scripts/atalaWebDocumentViewer.css" rel="stylesheet" type="text/css" />
 
     <script src="Scripts/app.js" type="text/javascript"></script>
 </head>
@@ -30,13 +30,19 @@
                     Select Scanner: <select class="atala-scanner-list" disabled="disabled" id=" ScannerList" name="scannerList" style="width:194px">
                         <option selected="selected">(no scanners available)</option>
                     </select>
-                    <input type="button" class="button"  value="Scan" id="Scan" onClick="scanWithSettings()"/>
+                    <input type="button" class="button" value="Scan" id="Scan" onClick="scanWithSettings()" />
                     <input type="button" class="atala-local-file-import-button cbutton" value="Import file" />
                 </div>
                 <!--Scan & VRS Settings-->
                 <div>
                     <h2>Scan Options:</h2>
                     <table>
+                        <tr>
+                            <td>Scan id (custom value):</td>
+                            <td>
+                                <input id="scanid" />
+                            </td>
+                        </tr>
                         <tr>
                             <td>showScannerUI:</td>
                             <td>
