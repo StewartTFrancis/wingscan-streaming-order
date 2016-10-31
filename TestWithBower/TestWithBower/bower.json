@@ -1,0 +1,7 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "web-document-viewer": "10.7.0"
+  }
+}
